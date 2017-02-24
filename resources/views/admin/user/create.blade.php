@@ -21,13 +21,13 @@
 
 
             <div class="form-group">
-                {!!  Form::label('role', 'Role: ') !!}
-                {!!  Form::select('role', ['L' => 'Large', 'S' => 'Small'], null, ['class'=>'form-control']) !!}
+                {!!  Form::label('role_id', 'Role: ') !!}
+                {!!  Form::select('role_id', $roles, null, ['class'=>'form-control']) !!}
             </div>
 
             <div class="form-group">
-                {!!  Form::checkbox('is_active', '1') !!}
-                {!!  Form::label('status', 'Activate ') !!}
+                {!!  Form::label('is_active', 'Status ') !!}
+                {!!  Form::select('is_active', ['1' => 'Active', '0' => 'Not Active'], null, ['class'=>'form-control']) !!}
             </div>
 
             {!! Form::submit('Add User', ['class'=>'btn btn-success']) !!}
