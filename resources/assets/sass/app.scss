@@ -1,0 +1,37 @@
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.mg-lft-10{
+  margin-left: 10px ;
+}
+.mg-top-20{
+  margin-top: 20px;
+}
+.fs-30{
+  font-size: 30px;
+}
+
+#log-in-form{
+  width:80%;
+  margin: auto;
+  h1{
+    margin-bottom: 2rem;
+  }
+  .form-control{
+    width: 60%;
+  }
+}
+.flt-left{
+  float: left;
+}
+.flt-right{
+  float: right;
+}
+
