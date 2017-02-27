@@ -36,8 +36,8 @@
             </div>
 
             <div class="form-group">
-                {!!  Form::label('file', 'Avatar') !!}
-                {!!  Form::file('file') !!}
+                {!!  Form::label('photo_id', 'Avatar') !!}
+                {!!  Form::file('photo_id', null, ['class'=>'btn btn-success']) !!}
             </div>
 
             {!! Form::submit('Add User', ['class'=>'btn btn-success']) !!}
