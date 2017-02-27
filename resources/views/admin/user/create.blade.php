@@ -5,7 +5,7 @@
 
         <div id="log-in-form">
             <h1>Create User</h1>
-            {!! Form::open(['action' => 'AdminUserController@store', 'method'=>'POST']) !!}
+            {!! Form::open(['action' => 'AdminUserController@store', 'method'=>'POST', 'files'=>true]) !!}
 
 
             <div class="form-group">
@@ -13,10 +13,15 @@
                 {!!  Form::text('name', null, ['class' => 'form-control']) !!}
             </div>
 
+            <div class="form-group">
+                {!!  Form::label('password', 'Password: ') !!}
+                {!!  Form::password('password', ['class' => 'form-control']) !!}
+            </div>
+
 
             <div class="form-group">
-                {!!  Form::label('Email', 'Email ') !!}
-                {!!  Form::text('Email', null, ['class' => 'form-control']) !!}
+                {!!  Form::label('email', 'Email ') !!}
+                {!!  Form::text('email', null, ['class' => 'form-control']) !!}
             </div>
 
 
@@ -30,10 +35,19 @@
                 {!!  Form::select('is_active', ['1' => 'Active', '0' => 'Not Active'], null, ['class'=>'form-control']) !!}
             </div>
 
+            <div class="form-group">
+                {!!  Form::label('file', 'Avatar') !!}
+                {!!  Form::file('file') !!}
+            </div>
+
             {!! Form::submit('Add User', ['class'=>'btn btn-success']) !!}
 
 
             {!! Form::close() !!}
+
+            @include('includes.error')
+
+
         </div>
 
     </div>

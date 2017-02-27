@@ -26,8 +26,13 @@
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->role->name}}</td>
-                <td>{{$user->created_at->diffForHumans()}}</td>
-                <td>{{$user->updated_at->diffForHumans()}}</td>
+                @if(isset($user->created_at) && isset($user->updated_at))
+                    <td>{{$user->created_at->diffForHumans()}}</td>
+                    <td>{{$user->updated_at->diffForHumans()}}</td>
+                @else
+                    <td>Do not have info</td>
+                    <td>Do not have info</td>
+                @endif
                 @if($user->is_active)
                     <td>Activated</td>
                 @else

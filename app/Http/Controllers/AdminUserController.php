@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 
 class AdminUserController extends Controller
 {
@@ -38,10 +39,14 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         //
-        return $request->all();
+       // return $request->all();
+
+        $request['password'] = bcrypt($request['password']);
+        User::create($request->all());
+        return redirect('/admin');
     }
 
     /**

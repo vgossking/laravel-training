@@ -16,10 +16,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'Vu Vuong',
             'email' => 'minhvu.261294@gmail.com',
             'password' => bcrypt('babyno1994'),
+            'role_id' => 1,
+            'is_active' => 1
         ]);
 
         DB::table('roles')->insert([
             'name' => 'administrator',
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'editor',
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'user',
         ]);
     }
 }
