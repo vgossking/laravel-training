@@ -29,7 +29,7 @@
                 @else
                     <td>No photo</td>
                 @endif
-                <td>{{$user->name}}</td>
+                <td><a href="{{route('users.edit', $user->id)}}">{{$user->name}}</a></td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->role->name}}</td>
                 @if(isset($user->created_at) && isset($user->updated_at))
