@@ -7,6 +7,8 @@ use App\Photo;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\Response;
+
 
 class AdminUserController extends Controller
 {
@@ -124,6 +126,9 @@ class AdminUserController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::destroy($id);
+        $json = Response::json($user);
+        return $json;
     }
 
     private function convertToNonUnicode($str)
