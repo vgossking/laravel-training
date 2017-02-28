@@ -26,9 +26,8 @@ class UserRequest extends FormRequest
 
         if($this->method() == 'PATCH'){
             $id = $this->segment(3);
-            $userData = $this->all();
             //check if password blank then not require password
-            if($userData['password'] == ""){
+            if($this->password == ""){
                 return [
                     //
                     'name' =>'required',
