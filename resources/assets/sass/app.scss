@@ -19,11 +19,8 @@
 }
 
 #log-in-form{
-  width:80%;
   margin: auto;
-  h1{
-    margin-bottom: 2rem;
-  }
+
   .form-control{
     width: 60%;
   }
@@ -36,5 +33,9 @@
 }
 .flt-right{
   float: right;
+}
+
+.title{
+  padding: 15px;
 }
 

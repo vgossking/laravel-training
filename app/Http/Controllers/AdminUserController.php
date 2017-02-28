@@ -80,7 +80,8 @@ class AdminUserController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        return view('admin.user.edit', compact('user'));
+        $roles = Role::pluck('name','id')->all();
+        return view('admin.user.edit', compact('user', 'roles'));
     }
 
     /**
