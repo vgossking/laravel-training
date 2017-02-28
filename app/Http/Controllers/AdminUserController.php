@@ -7,7 +7,7 @@ use App\Photo;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Response;
 
 
 class AdminUserController extends Controller
@@ -127,8 +127,9 @@ class AdminUserController extends Controller
     {
         //
         $user = User::destroy($id);
-        $json = Response::json($user);
+        $json =Response::json($user);
         return $json;
+
     }
 
     private function convertToNonUnicode($str)

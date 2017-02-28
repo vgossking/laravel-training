@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         @foreach($users as $user)
-            <tr>
+            <tr id = "user-{{$user->id}}">
                 <td class="user-id">{{$user->id}}</td>
                 <td><img height = '50' src="{{$user->photo? $user->photo->path :"http://placehold.it/200x200"}}" alt=""></td>
                 <td><a href="{{route('users.edit', $user->id)}}">{{$user->name}}</a></td>

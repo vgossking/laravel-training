@@ -33,7 +33,7 @@ $(function () {
             type: "DELETE",
             url: "users/"+id,
             success: function (data) {
-                location.reload();
+                $("#user-"+id).remove();
             },
             error: function (data) {
                 console.log('ERR');
