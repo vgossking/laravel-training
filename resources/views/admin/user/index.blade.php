@@ -28,13 +28,8 @@
                 <td><a href="{{route('users.edit', $user->id)}}">{{$user->name}}</a></td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->role->name}}</td>
-                @if(isset($user->created_at) && isset($user->updated_at))
-                    <td>{{$user->created_at->diffForHumans()}}</td>
-                    <td>{{$user->updated_at->diffForHumans()}}</td>
-                @else
-                    <td>Do not have info</td>
-                    <td>Do not have info</td>
-                @endif
+                <td>{{$user->created_at ? $user->created_at->diffForHumans(): "Do not have info"}}</td>
+                <td>{{$user->updated_at ? $user->updated_at->diffForHumans(): "Do not have info"}}</td>
                 @if($user->is_active)
                     <td>Activated</td>
                 @else

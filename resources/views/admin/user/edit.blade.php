@@ -18,13 +18,13 @@
             </div>
 
             <div class="form-group">
-                {!!  Form::label('password', 'Password: ') !!}
+                {!!  Form::label('password', 'Password:(leave blank if dont want to change) ') !!}
                 {!!  Form::password('password', ['class' => 'form-control']) !!}
             </div>
 
 
             <div class="form-group">
-                {!!  Form::label('email', 'Email ') !!}
+                {!!  Form::label('email', 'Email: ') !!}
                 {!!  Form::text('email', null, ['class' => 'form-control']) !!}
             </div>
 

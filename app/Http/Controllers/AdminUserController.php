@@ -91,9 +91,28 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         //
+        $user = User::findOrFail($id);
+        $userData = $request->all();
+        if($file = $request->file('photo_id')){
+            $fileName = date('Y_m_d', time()).'-'.$file->getClientOriginalName();
+            $fileName = $this->convertToNonUnicode($fileName);
+            $file->move('images', $fileName);
+            $photo = Photo::create(['path'=> $fileName]);
+            $userData['photo_id'] = $photo->id;
+        }
+        if($userData['password'] == ''){
+            unset($userData['password']);
+        }
+        else{
+            $userData['password'] = bcrypt($userData['password']);
+        }
+        $user->update($userData);
+
+        return redirect(route('users.index'));
+
     }
 
     /**
