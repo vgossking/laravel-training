@@ -23,11 +23,33 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+
+        if($this->method() == 'PATCH'){
+            $id = $this->segment(3);
+            //check if password blank then not require password
+            if($this->password == ""){
+                return [
+                    //
+                    'name' =>'required',
+                    'email' =>'required|email|unique:users,email,' . $id,
+
+                ];
+            }
+            else{
+                return [
+                    //
+                    'name' =>'required',
+                    'email' =>'required|email|unique:users,email,' . $id,
+                    'password' => 'min:6'
+                ];
+            }
+
+        }
         return [
             //
 
             'name' =>'required',
-            'email' =>'required|email|max:255|unique:users',
+            'email' =>'required|email|unique:users',
             'password'=>'required|min:6'
 
         ];
