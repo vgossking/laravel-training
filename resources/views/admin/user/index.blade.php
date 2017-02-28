@@ -25,7 +25,7 @@
             <tr>
                 <td>{{$user->id}}</td>
                 @if(isset($user->photo))
-                    <td><img height="50" src="{{$user->photo->path}}" alt=""></td>
+                    <td><img height="50"  src="{{$user->photo->path}}" alt=""></td>
                 @else
                     <td>No photo</td>
                 @endif
