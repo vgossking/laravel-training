@@ -99,6 +99,10 @@ class AdminUserController extends Controller
         $user = User::findOrFail($id);
         $userData = $request->all();
         if($file = $request->file('photo_id')){
+            if($oldPhoto = $user->photo){
+                unlink(public_path().$oldPhoto->path);
+                $oldPhoto->delete();
+            }
             $fileName = date('Y_m_d', time()).'-'.$file->getClientOriginalName();
             $fileName = $this->convertToNonUnicode($fileName);
             $file->move('images', $fileName);
