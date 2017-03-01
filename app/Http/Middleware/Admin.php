@@ -19,7 +19,7 @@ class Admin
     {
         if(Auth::check()){
             $user = Auth::user();
-            if($user->isAdmin()){
+            if($user->isAdmin() && $user->is_active){
                 return $next($request);
             }
             return redirect('/home');
