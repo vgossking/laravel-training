@@ -22,8 +22,9 @@ class Admin
             if($user->isAdmin()){
                 return $next($request);
             }
+            return redirect('/home');
         }
 
-        return redirect('/');
+        return redirect('/login');
     }
 }
