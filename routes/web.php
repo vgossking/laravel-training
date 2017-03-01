@@ -10,9 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use \Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    if(Auth::check()){
+        $user = Auth::user();
+    }
+    return view('welcome', compact('user'));
 });
 
 Auth::routes();
@@ -26,4 +30,5 @@ Route::group(['middleware'=>'admin'], function (){
         return view('admin.index');
     });
     Route::resource('/admin/users', 'AdminUserController');
+    Route::resource('/admin/posts', 'AdminPostController');
 });

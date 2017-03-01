@@ -70,6 +70,9 @@
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
+                        @if($user->isAdmin() && $user->is_active )
+                            <a href="{{ url('/admin') }}">Admin</a>
+                        @endif
                     @else
                         <a href="{{ url('/login') }}">Login</a>
                         <a href="{{ url('/register') }}">Register</a>
