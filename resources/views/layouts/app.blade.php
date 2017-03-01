@@ -19,8 +19,6 @@
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <!-- Page-Level Plugin CSS - Blank -->
 
-    <!-- SB Admin CSS - Include with every page -->
-    <link href="css/sb-admin.css" rel="stylesheet">
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([

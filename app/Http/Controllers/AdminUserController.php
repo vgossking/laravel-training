@@ -126,8 +126,13 @@ class AdminUserController extends Controller
     public function destroy($id)
     {
         //
-        $user = User::destroy($id);
-        $json =Response::json($user);
+        $user = User::findOrFail($id);
+        $photo = $user->photo;
+        unlink(public_path() . $photo->path);
+        $photo->delete();
+        $userDelete = User::destroy($id);
+        $json =Response::json($userDelete);
+
         return $json;
 
     }
