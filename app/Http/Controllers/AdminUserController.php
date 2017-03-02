@@ -50,11 +50,7 @@ class AdminUserController extends Controller
             $fileName = date('Y_m_d', time()).'-'.$file->getClientOriginalName();
             $fileName = $this->convertToNonUnicode($fileName);
             $photo = new Photo();
-            $count = 1;
-            while($photo->checkPathNameExist($fileName)){
-                $count ++;
-                $fileName = $count.'-'.$fileName;
-            }
+            $fileName = $photo->generateNewNameIfExist($fileName);
             $photo->path = $fileName;
             $photo->save();
             $file->move('images', $fileName);
@@ -107,13 +103,16 @@ class AdminUserController extends Controller
         $userData = $request->all();
         if($file = $request->file('photo_id')){
             if($oldPhoto = $user->photo){
-                unlink(public_path().$oldPhoto->path);
+                $oldPhoto->unlinkFileIfExist();
                 $oldPhoto->delete();
             }
             $fileName = date('Y_m_d', time()).'-'.$file->getClientOriginalName();
             $fileName = $this->convertToNonUnicode($fileName);
+            $photo = new Photo();
+            $fileName = $photo->generateNewNameIfExist($fileName);
+            $photo->path = $fileName;
+            $photo->save();
             $file->move('images', $fileName);
-            $photo = Photo::create(['path'=> $fileName]);
             $userData['photo_id'] = $photo->id;
         }
         if($userData['password'] == ''){
@@ -139,9 +138,7 @@ class AdminUserController extends Controller
         //
         $user = User::findOrFail($id);
         $photo = $user->photo;
-        if(file_exists(public_path() . $photo->path)){
-            unlink(public_path() . $photo->path);
-        }
+        $photo->unlinkFileIfExist();
         $photo->delete();
         $userDelete = User::destroy($id);
         $json =Response::json($userDelete);
