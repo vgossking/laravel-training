@@ -25,10 +25,7 @@ class Photo extends Model
         $path = $this->generateNewNameIfExist($path);
         $this->attributes['path'] = $path;
     }
-    /*
-     *
-     *
-     */
+ 
     public function generateNewNameIfExist($fileName){
         $count = 0;
         while($this->checkPathNameExist($fileName)){
@@ -52,6 +49,7 @@ class Photo extends Model
             unlink(public_path().$this->path);
         }
     }
+
     public function convertToNonUnicode($str)
     {
         if (!$str) return false;
