@@ -19,6 +19,12 @@ class Photo extends Model
     public function getPathAttribute($path){
         return $this->imageLink.$path;
     }
+
+    public function setPathAttribute($path){
+        $path = $this->convertToNonUnicode($path);
+        $path = $this->generateNewNameIfExist($path);
+        $this->attributes['path'] = $path;
+    }
     /*
      *
      *

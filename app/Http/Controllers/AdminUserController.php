@@ -50,12 +50,9 @@ class AdminUserController extends Controller
             $fileName = date('Y_m_d', time()) . '-' . $file->getClientOriginalName();
             $fileName = $this->convertToNonUnicode($fileName);
             $photo = new Photo();
-            $fileName = $photo->generateNewNameIfExist($fileName);
             $photo->path = $fileName;
             $photo->save();
-            $file->move('images', $fileName);
-
-
+            $file->move('images', $photo->path);
             $userData['photo_id'] = $photo->id;
         }
         $userData['password'] = bcrypt($userData['password']);
@@ -108,11 +105,9 @@ class AdminUserController extends Controller
             }
             $fileName = date('Y_m_d', time()) . '-' . $file->getClientOriginalName();
             $photo = new Photo();
-            $fileName = $photo->convertToNonUnicode($fileName);
-            $fileName = $photo->generateNewNameIfExist($fileName);
             $photo->path = $fileName;
             $photo->save();
-            $file->move('images', $fileName);
+            $file->move('images', $photo->path);
             $userData['photo_id'] = $photo->id;
         }
         if ($userData['password'] == '') {
