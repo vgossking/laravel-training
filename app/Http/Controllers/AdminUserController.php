@@ -48,8 +48,9 @@ class AdminUserController extends Controller
 
         if ($file = $request->file('photo_id')) {
             $fileName = date('Y_m_d', time()) . '-' . $file->getClientOriginalName();
-            $fileName = $this->convertToNonUnicode($fileName);
             $photo = new Photo();
+            $fileName = $photo->convertToNonUnicode($fileName);
+
             $photo->path = $fileName;
             $photo->save();
             $file->move('images', $photo->path);
