@@ -111,10 +111,10 @@
                         <a href="#"><i class="fa fa-pencil-square-o  fa-fw"></i> Posts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/admin/posts">All Posts</a>
+                                <a href="{{route('posts.index')}}">All Posts</a>
                             </li>
                             <li>
-                                <a href="/admin/posts/create">Add Posts</a>
+                                <a href="{{route('posts.create')}}">Add Posts</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use Illuminate\Http\Request;
 
 class AdminPostsController extends Controller
@@ -14,7 +15,8 @@ class AdminPostsController extends Controller
     public function index()
     {
         //
-        return view('admin.post.index');
+        $posts = Post::paginate(15);
+        return view('admin.post.index', compact('posts'));
     }
 
     /**
