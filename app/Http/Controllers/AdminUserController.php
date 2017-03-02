@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Role;
 use App\Photo;
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Response;
 
@@ -50,8 +49,16 @@ class AdminUserController extends Controller
         if($file = $request->file('photo_id')){
             $fileName = date('Y_m_d', time()).'-'.$file->getClientOriginalName();
             $fileName = $this->convertToNonUnicode($fileName);
+            $photo = new Photo();
+            $count = 1;
+            while($photo->checkPathNameExist($fileName)){
+                $count ++;
+                $fileName = $count.'-'.$fileName;
+            }
+            $photo->path = $fileName;
+            $photo->save();
             $file->move('images', $fileName);
-            $photo = Photo::create(['path'=> $fileName]);
+
 
             $userData['photo_id'] = $photo->id;
         }
@@ -132,7 +139,9 @@ class AdminUserController extends Controller
         //
         $user = User::findOrFail($id);
         $photo = $user->photo;
-        unlink(public_path() . $photo->path);
+        if(file_exists(public_path() . $photo->path)){
+            unlink(public_path() . $photo->path);
+        }
         $photo->delete();
         $userDelete = User::destroy($id);
         $json =Response::json($userDelete);
