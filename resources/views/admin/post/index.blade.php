@@ -24,8 +24,8 @@
                       <td>{{$post->id}}</td>
                       <td>None</td>
                       <td>{{$post->title}}</td>
-                      <td>{{$post->body? $post->body : ""}}</td>
-                      <td>none</td>
+                      <td><div class="tbl-cel">{{$post->body? $post->body : ""}}</div></td>
+                      <td>{{$post->user->name}}</td>
                       <td>none</td>
                       <td>{{$post->created_at ? $post->created_at->diffForHumans() : ""}}</td>
                       <td>{{$post->updated_at ? $post->updated_at->diffForHumans() : ""}}</td>
