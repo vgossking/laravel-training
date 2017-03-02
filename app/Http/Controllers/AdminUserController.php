@@ -38,7 +38,7 @@ class AdminUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request)
@@ -46,8 +46,8 @@ class AdminUserController extends Controller
         //
         $userData = $request->all();
 
-        if($file = $request->file('photo_id')){
-            $fileName = date('Y_m_d', time()).'-'.$file->getClientOriginalName();
+        if ($file = $request->file('photo_id')) {
+            $fileName = date('Y_m_d', time()) . '-' . $file->getClientOriginalName();
             $fileName = $this->convertToNonUnicode($fileName);
             $photo = new Photo();
             $fileName = $photo->generateNewNameIfExist($fileName);
@@ -67,7 +67,7 @@ class AdminUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -78,22 +78,22 @@ class AdminUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         //
         $user = User::findOrFail($id);
-        $roles = Role::pluck('name','id')->all();
+        $roles = Role::pluck('name', 'id')->all();
         return view('admin.user.edit', compact('user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, $id)
@@ -101,24 +101,23 @@ class AdminUserController extends Controller
         //
         $user = User::findOrFail($id);
         $userData = $request->all();
-        if($file = $request->file('photo_id')){
-            if($oldPhoto = $user->photo){
+        if ($file = $request->file('photo_id')) {
+            if ($oldPhoto = $user->photo) {
                 $oldPhoto->unlinkFileIfExist();
                 $oldPhoto->delete();
             }
-            $fileName = date('Y_m_d', time()).'-'.$file->getClientOriginalName();
-            $fileName = $this->convertToNonUnicode($fileName);
+            $fileName = date('Y_m_d', time()) . '-' . $file->getClientOriginalName();
             $photo = new Photo();
+            $fileName = $photo->convertToNonUnicode($fileName);
             $fileName = $photo->generateNewNameIfExist($fileName);
             $photo->path = $fileName;
             $photo->save();
             $file->move('images', $fileName);
             $userData['photo_id'] = $photo->id;
         }
-        if($userData['password'] == ''){
+        if ($userData['password'] == '') {
             unset($userData['password']);
-        }
-        else{
+        } else {
             $userData['password'] = bcrypt($userData['password']);
         }
         $user->update($userData);
@@ -130,7 +129,7 @@ class AdminUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -141,39 +140,10 @@ class AdminUserController extends Controller
         $photo->unlinkFileIfExist();
         $photo->delete();
         $userDelete = User::destroy($id);
-        $json =Response::json($userDelete);
+        $json = Response::json($userDelete);
 
         return $json;
 
     }
 
-    private function convertToNonUnicode($str)
-    {
-        if (!$str) return false;
-        $unicode = array(
-            'a' => array('á', 'à', 'ả', 'ã', 'ạ', 'ă', 'ắ', 'ặ', 'ằ', 'ẳ', 'ẵ', 'â', 'ấ', 'ầ', 'ẩ', 'ẫ', 'ậ'),
-            'A' => array('Á', 'À', 'Ả', 'Ã', 'Ạ', 'Ă', 'Ắ', 'Ặ', 'Ằ', 'Ẳ', 'Ẵ', 'Â', 'Ấ', 'Ầ', 'Ẩ', 'Ẫ', 'Ậ'),
-            'd' => array('đ'),
-            'D' => array('Đ'),
-            'e' => array('é', 'è', 'ẻ', 'ẽ', 'ẹ', 'ê', 'ế', 'ề', 'ể', 'ễ', 'ệ'),
-            'E' => array('É', 'È', 'Ẻ', 'Ẽ', 'Ẹ', 'Ê', 'Ế', 'Ề', 'Ể', 'Ễ', 'Ệ'),
-            'i' => array('í', 'ì', 'ỉ', 'ĩ', 'ị'),
-            'I' => array('Í', 'Ì', 'Ỉ', 'Ĩ', 'Ị'),
-            'o' => array('ó', 'ò', 'ỏ', 'õ', 'ọ', 'ô', 'ố', 'ồ', 'ổ', 'ỗ', 'ộ', 'ơ', 'ớ', 'ờ', 'ở', 'ỡ', 'ợ'),
-            'O' => array('Ó', 'Ò', 'Ỏ', 'Õ', 'Ọ', 'Ô', 'Ố', 'Ồ', 'Ổ', 'Ỗ', 'Ộ', 'Ơ', 'Ớ', 'Ờ', 'Ở', 'Ỡ', 'Ợ'),
-            'u' => array('ú', 'ù', 'ủ', 'ũ', 'ụ', 'ư', 'ứ', 'ừ', 'ử', 'ữ', 'ự'),
-            'U' => array('Ú', 'Ù', 'Ủ', 'Ũ', 'Ụ', 'Ư', 'Ứ', 'Ừ', 'Ử', 'Ữ', 'Ự'),
-            'y' => array('ý', 'ỳ', 'ỷ', 'ỹ', 'ỵ'),
-            'Y' => array('Ý', 'Ỳ', 'Ỷ', 'Ỹ', 'Ỵ'),
-        );
-        foreach ($unicode as $nonUnicode => $uni) {
-            foreach ($uni as $value) {
-                $str = @str_replace($value, $nonUnicode, $str);
-            }
-            $str = preg_replace("/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\:|\;|\'| |\"|\&|\#|\[|\]|~|$|_/", "-", $str);
-            $str = preg_replace("/-+-/", "-", $str);
-            $str = preg_replace("/^\-+|\-+$/", "", $str);
-        }
-        return $str;
-    }
 }
