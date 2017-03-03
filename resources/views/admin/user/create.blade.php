@@ -37,7 +37,7 @@
 
             <div class="form-group">
                 {!!  Form::label('photo_id', 'Avatar') !!}
-                {!!  Form::file('photo_id', null, ['c']) !!}
+                {!!  Form::file('photo_id', null) !!}
             </div>
 
             {!! Form::submit('Add User', ['class'=>'btn btn-success']) !!}
