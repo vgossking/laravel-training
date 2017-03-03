@@ -5,7 +5,7 @@
         <div class="flt-left">
             <h1>All Posts</h1>
         </div>
-        @if($posts)
+        @if($posts->count() > 0)
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -22,8 +22,8 @@
                 <tbody>
 
                 @foreach($posts as $post)
-                    <tr>
-                        <td>{{$post->id}}</td>
+                    <tr id="post-{{$post->id}}">
+                        <td class="post-id">{{$post->id}}</td>
                         <td><img height = '50' src="{{$post->photo? $post->photo->path :"http://placehold.it/200x200"}}" alt=""></td>
                         <td><a href="{{url(route('posts.edit', $post->id))}}">{{$post->title}}</a></td>
                         <td>
@@ -33,6 +33,7 @@
                         <td>{{$post->category? $post->category->name : 'Unknown category'}}</td>
                         <td>{{$post->created_at ? $post->created_at->diffForHumans() : ""}}</td>
                         <td>{{$post->updated_at ? $post->updated_at->diffForHumans() : ""}}</td>
+                        <td><td><button class="btn btn-danger btn-post-delete">Delete</button></td></td>
                     </tr>
                 @endforeach
                 @else

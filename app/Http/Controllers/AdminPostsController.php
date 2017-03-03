@@ -8,6 +8,7 @@ use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 
 class AdminPostsController extends Controller
 {
@@ -120,5 +121,14 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::findOrFail($id);
+        if($photo = $post->photo){
+            $photo->unlinkFileIfExist();
+            $photo->delete();
+        }
+        $postDelete = Post::destroy($id);
+        $json = Response::json($postDelete);
+
+        return $json;
     }
 }

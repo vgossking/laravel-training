@@ -20,6 +20,15 @@ $(function() {
 $(function () {
     $(document).on('click', '.btn-delete', function () {
         var id = $(this).closest('tr').find('.user-id').html();
+        deleteAjax('user', id);
+    });
+
+    $(document).on('click', '.btn-post-delete', function () {
+        var id = $(this).closest('tr').find('.post-id').html();
+        deleteAjax('post', id);
+    });
+
+    function deleteAjax(typeDelete, id){
         $.ajaxSetup({
 
             headers: {
@@ -31,13 +40,13 @@ $(function () {
         });
         $.ajax({
             type: "DELETE",
-            url: "users/"+id,
+            url: typeDelete +'s/'+id,
             success: function (data) {
-                $("#user-"+id).remove();
+                $("#"+typeDelete+"-"+id).remove();
             },
             error: function (data) {
                 console.log('ERR');
             }
         });
-    });
+    }
 });

@@ -130,9 +130,10 @@ class AdminUserController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        $photo = $user->photo;
-        $photo->unlinkFileIfExist();
-        $photo->delete();
+        if($photo = $user->photo){
+            $photo->unlinkFileIfExist();
+            $photo->delete();
+        }
         $userDelete = User::destroy($id);
         $json = Response::json($userDelete);
 
