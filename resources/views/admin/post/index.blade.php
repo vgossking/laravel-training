@@ -30,7 +30,7 @@
                             <div class="tbl-cel">{{$post->body? $post->body : ""}}</div>
                         </td>
                         <td>{{$post->user->name}}</td>
-                        <td>none</td>
+                        <td>{{$post->category? $post->category->name : 'Unknown category'}}</td>
                         <td>{{$post->created_at ? $post->created_at->diffForHumans() : ""}}</td>
                         <td>{{$post->updated_at ? $post->updated_at->diffForHumans() : ""}}</td>
                     </tr>
