@@ -28,8 +28,8 @@
             </div>
 
             <div class="form-group">
-                {!!  Form::label('category_id', 'Content: ') !!}
-                {!!  Form::select('category_id', array(''=>'Choose Category'), null, ['class' => 'form-control']) !!}
+                {!!  Form::label('category_id', 'Category: ') !!}
+                {!!  Form::select('category_id', [], null, ['class' => 'form-control']) !!}
             </div>
 
             {!! Form::submit('Create Post', ['class'=>'btn btn-success']) !!}
@@ -37,6 +37,7 @@
 
             {!! Form::close() !!}
         </div>
+        @include('includes.error')
     </div>
 
 

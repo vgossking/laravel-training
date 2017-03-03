@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
+use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPostsController extends Controller
 {
@@ -37,9 +40,20 @@ class AdminPostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         //
+        $userData = $request->except('photo_id');
+        $userData['user_id'] = Auth::id();
+        $post = Post::create($userData);
+        if($file = $request->file('photo_id')){
+            $fileName = date('Y_m_d', time()) . '-'.$post->id;
+            $photo = Photo::create(['path'=>'posts/'.$fileName.'.jpg']);
+            $file->move('images', $photo->path);
+            $post->photo_id = $photo->id;
+            $post->save();
+        }
+        return redirect(route('posts.index'));
     }
 
     /**
