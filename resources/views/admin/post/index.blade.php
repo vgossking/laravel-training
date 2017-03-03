@@ -25,7 +25,7 @@
                     <tr>
                         <td>{{$post->id}}</td>
                         <td><img height = '50' src="{{$post->photo? $post->photo->path :"http://placehold.it/200x200"}}" alt=""></td>
-                        <td>{{$post->title}}</td>
+                        <td><a href="{{url(route('posts.edit', $post->id))}}">{{$post->title}}</a></td>
                         <td>
                             <div class="tbl-cel">{{$post->body? $post->body : ""}}</div>
                         </td>
