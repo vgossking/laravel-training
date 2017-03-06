@@ -29,9 +29,6 @@ class DatabaseSeeder extends Seeder
         DB::table('roles')->insert([
             'name' => 'user',
         ]);
-        DB::table('roles')->insert([
-            'name' => 'user',
-        ]);
         DB::table('posts')->insert([
             'title' => 'Hello World',
             'user_id' => 1
